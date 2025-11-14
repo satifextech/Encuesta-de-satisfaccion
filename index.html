@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encuesta de Satisfacción</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 0; background: #f5f5f5; }
+    .page { display: none; padding: 20px; }
+    .active { display: block; }
+    .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 12px; }
+    .question { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; }
+    input[type="text"], textarea, select {
+      width: 100%; padding: 12px; font-size: 18px; border-radius: 8px; border: 1px solid #ccc;
+    }
+    textarea { height: 100px; }
+    .emoji-row { display: flex; gap: 20px; justify-content: center; }
+    .emoji { font-size: 60px; cursor: pointer; opacity: 0.5; transition: 0.2s; }
+    .emoji.selected { opacity: 1; transform: scale(1.2); }
+    button {
+      width: 100%; padding: 16px; font-size: 20px; border: none; border-radius: 10px; cursor: pointer; background: #007bff; color: white;
+    }
+    .carousel img { width: 100%; border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <!-- PAGINA PRINCIPAL -->
+  <div id="page-main" class="page active">
+    <div class="container">
+      <h2>Encuesta de Satisfacción</h2>
+
+      <div class="question">
+        <label>1. Nombre del paciente</label>
+        <input id="nombre" type="text" />
+      </div>
+
+      <div class="question">
+        <label>2. ¿Qué tan satisfecho estás con nuestro servicio?</label>
+        <div class="emoji-row">
+          <div class="emoji" data-value="malo">😞</div>
+          <div class="emoji" data-value="medio">😐</div>
+          <div class="emoji" data-value="bueno">😊</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <label>3. Tipo de servicio</label>
+        <select id="servicio">
+          <option value="">Seleccione...</option>
+          <option>Terapia de lenguaje</option>
+          <option>Terapia acuática</option>
+          <option>Terapia motriz</option>
+        </select>
+      </div>
+
+      <div class="question">
+        <label>4. Colaborador</label>
+        <select id="colaborador">
+          <option value="">Seleccione...</option>
+          <option>Juan</option>
+          <option>Marisol</option>
+          <option>Esteban</option>
+        </select>
+      </div>
+
+      <div class="question">
+        <label>5. Observaciones</label>
+        <textarea id="observaciones"></textarea>
+      </div>
+
+      <button id="btnEnviar">Enviar</button>
+    </div>
+  </div>
+
+  <!-- PAGINA DE AGRADECIMIENTO -->
+  <div id="page-thanks" class="page">
+    <div class="container">
+      <h2>¡Gracias por tus comentarios!</h2>
+    </div>
+  </div>
+
+  <!-- PAGINA DE ESPERA -->
+  <div id="page-wait" class="page">
+    <div class="container">
+      <h2>Pantalla de espera</h2>
+      <div class="carousel">
+        <img id="carousel-img" src="" alt="imagen" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ------------------------ VARIABLES ------------------------
+    let selectedSatisfaction = null;
+    const emojis = document.querySelectorAll('.emoji');
+    const pages = {
+      main: document.getElementById('page-main'),
+      thanks: document.getElementById('page-thanks'),
+      wait: document.getElementById('page-wait')
+    };
+
+    let inactivityTimer;
+
+    // ------------------------ EMOJIS ------------------------
+    emojis.forEach(e => {
+      e.addEventListener('click', () => {
+        emojis.forEach(x => x.classList.remove('selected'));
+        e.classList.add('selected');
+        selectedSatisfaction = e.dataset.value;
+      });
+    });
+
+    // ------------------------ VALIDACIÓN Y ENVÍO ------------------------
+    document.getElementById('btnEnviar').addEventListener('click', () => {
+      const nombre = document.getElementById('nombre').value.trim();
+      const servicio = document.getElementById('servicio').value;
+      const colaborador = document.getElementById('colaborador').value;
+      const observaciones = document.getElementById('observaciones').value.trim();
+
+      if (!nombre || !selectedSatisfaction || !servicio || !colaborador || !observaciones) {
+        alert("Todos los campos son obligatorios.");
+        return;
+      }
+
+      // Enviar a Google Sheets mediante Google Apps Script
+      fetch(`YOUR_SCRIPT_URL`, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, selectedSatisfaction, servicio, colaborador, observaciones })
+      });
+
+      showPage('thanks');
+      setTimeout(() => showPage('main'), 10000);
+    });
+
+    // ------------------------ PANTALLA DE ESPERA ------------------------
+    const images = [ // Cambiar por tus imágenes
+      "img1.jpg", "img2.jpg", "img3.jpg"
+    ];
+    let idx = 0;
+    setInterval(() => {
+      if (pages.wait.classList.contains('active')) {
+        document.getElementById('carousel-img').src = images[idx];
+        idx = (idx + 1) % images.length;
+      }
+    }, 3000);
+
+    // ------------------------ INACTIVIDAD ------------------------
+    function resetInactivity() {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => showPage('wait'), 60000);
+    }
+
+    document.addEventListener('mousemove', resetInactivity);
+    document.addEventListener('touchstart', resetInactivity);
+    resetInactivity();
+
+    // ------------------------ NAVEGACIÓN ------------------------
+    function showPage(p) {
+      Object.values(pages).forEach(pg => pg.classList.remove('active'));
+      pages[p].classList.add('active');
+    }
+  </script>
+</body>
+</html>
