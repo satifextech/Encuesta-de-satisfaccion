@@ -15,6 +15,7 @@
       width: 100%; padding: 12px; font-size: 18px; border-radius: 8px; border: 1px solid #ccc;
     }
     textarea { height: 100px; }
+    .emoji-labels {display: flex; justify-content: center; gap: 40px; margin-top: -10px; font-size: 20px;  font-weight: 600;color: #333;}
     .emoji-row { display: flex; gap: 70px; justify-content: center; }
     .emoji { font-size: 140px; cursor: pointer; opacity: 0.5; transition: 0.2s; }
     .emoji.selected { opacity: 1; transform: scale(1.2); }
@@ -41,6 +42,11 @@
           <div class="emoji" data-value="malo">☹️</div>
           <div class="emoji" data-value="medio">😐</div>
           <div class="emoji" data-value="bueno">😃</div>
+        </div>
+        <div class="emoji-labels">
+          <span>Muy insatisfecho</span>
+          <span>Neutral</span>
+          <span>Muy satisfecho</span>
         </div>
       </div>
 
