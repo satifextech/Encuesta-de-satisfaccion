@@ -87,7 +87,7 @@
       height: auto;
       border-radius: 12px;
       opacity: 0;
-      transition: opacity 2s ease-in-out;
+      transition: opacity 1s ease-in-out;
     }
 
   </style>
@@ -215,30 +215,36 @@
       setTimeout(() => showPage('main'), 10000);
     });
 
-    // ------------------------ PANTALLA DE ESPERA ------------------------
-    const images = [ // Cambiar por tus imágenes
-      "carrusel1.JPG", "carrusel2.JPG", "carrusel3.JPG", "carrusel4.JPG", "carrusel5.JPG", "carrusel6.JPG", "carrusel7.JPG", "carrusel8.JPG", "carrusel9.JPG", "carrusel10.JPG",
+    // ------------------------ PANTALLA DE ESPERA (CARRUSEL) ------------------------
+    const images = [
+      "carrusel1.JPG", "carrusel2.JPG", "carrusel3.JPG", "carrusel4.JPG", "carrusel5.JPG",
+      "carrusel6.JPG", "carrusel7.JPG", "carrusel8.JPG", "carrusel9.JPG", "carrusel10.JPG"
     ];
+
     let idx = 0;
     setInterval(() => {
       if (pages.wait.classList.contains('active')) {
-    
         const img = document.getElementById('carousel-img');
-    
-    // Oculta suavemente la imagen actual
         img.style.opacity = 0;
 
         setTimeout(() => {
-      // Cambia a la siguiente imagen
           img.src = images[idx];
           idx = (idx + 1) % images.length;
-
-      // Muestra suavemente la nueva imagen
           img.style.opacity = 1;
-        }, 300); // tiempo entre fade-out y cambio de imagen
-    
+        }, 1500); 
       }
-    }, 3000);
+    }, 6000);
+
+    // ------------------------ >>> AQUÍ AGREGO LO QUE FALTABA <<< ------------------------
+
+    // Cuando se toca/clic la pantalla de espera, regresar al formulario
+    pages.wait.addEventListener("click", () => {
+      if (pages.wait.classList.contains("active")) {
+        showPage("main");
+        resetInactivity();
+      }
+    });
+
     // ------------------------ INACTIVIDAD ------------------------
     function resetInactivity() {
       clearTimeout(inactivityTimer);
@@ -254,6 +260,7 @@
       Object.values(pages).forEach(pg => pg.classList.remove('active'));
       pages[p].classList.add('active');
     }
-  </script>
+</script>
+
 </body>
 </html>
