@@ -15,22 +15,41 @@
     }
 
     /* ===== MARCA DE AGUA CON TU IMAGEN ===== */
-    body::before {
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: rgba(255,255,255,0.93);
+      padding: 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+      position: relative; /* necesario */
+      overflow: hidden; /* evita que el logo sobresalga */
+    }
+
+/* Marca de agua dentro del cuadro blanco */
+    .container::before {
       content: "";
-      position: fixed;
+      position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 60%;
-      height: 60%;
-      background-image: url("DIFFF.jpg"); /* <-- TU IMAGEN */
+      width: 70%;        /* tamaño del logo */
+      height: 70%;
+      background-image: url("DIFFF.jpg"); /* tu logo */
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
-      opacity: 0.08; /* Transparencia suave */
+      opacity: 0.08;     /* transparencia */
+      pointer-events: none; /* no bloquea clics */
       z-index: 0;
-      pointer-events: none; /* No bloquea clics */
+      }
+
+/* Para que los textos queden arriba del logo */
+    .container * {
+      position: relative;
+      z-index: 1;
     }
+
 
     /* Hace que el contenido esté por encima del fondo */
     .page, .container {
