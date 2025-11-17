@@ -204,12 +204,13 @@
       }
 
       // Enviar a Google Sheets mediante Google Apps Script
-      fetch(`https://script.google.com/macros/s/AKfycbwO2o01SLkLwluqiEsVuD79wRc5e0_SBodq1KSAFis2hRyLN6-IWeJoW-x8f86gCXc/exec`, {
+      fetch("https://script.google.com/macros/s/AKfycbwhdADXC5yVqu1NOrEvg53QPzmHtk5K3B5IJyBKFNkdpMbrWePfY6apOPJgJmoPwah2/exec", {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre, selectedSatisfaction, servicio, colaborador, observaciones })
       });
+
 
       showPage('thanks');
       setTimeout(() => showPage('main'), 10000);
