@@ -223,6 +223,7 @@
       document.getElementById('colaborador').value = "";
       document.getElementById('observaciones').value = "";
       selectedSatisfaction = null;
+      document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
 
       showPage('thanks');
       setTimeout(() => showPage('main'), 10000);
