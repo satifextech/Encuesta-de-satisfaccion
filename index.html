@@ -81,7 +81,15 @@
     button {
       width: 100%; padding: 16px; font-size: 20px; border: none; border-radius: 10px; cursor: pointer; background: #007bff; color: white;
     }
-    .carousel img { width: 100%; border-radius: 12px; }
+    /* === FADE SUAVE DEL CARRUSEL === */
+    #carousel-img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
   </style>
 </head>
 <body>
@@ -214,11 +222,23 @@
     let idx = 0;
     setInterval(() => {
       if (pages.wait.classList.contains('active')) {
-        document.getElementById('carousel-img').src = images[idx];
-        idx = (idx + 1) % images.length;
+    
+        const img = document.getElementById('carousel-img');
+    
+    // Oculta suavemente la imagen actual
+        img.style.opacity = 0;
+
+        setTimeout(() => {
+      // Cambia a la siguiente imagen
+          img.src = images[idx];
+          idx = (idx + 1) % images.length;
+
+      // Muestra suavemente la nueva imagen
+          img.style.opacity = 1;
+        }, 300); // tiempo entre fade-out y cambio de imagen
+    
       }
     }, 3000);
-
     // ------------------------ INACTIVIDAD ------------------------
     function resetInactivity() {
       clearTimeout(inactivityTimer);
