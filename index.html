@@ -203,8 +203,7 @@
         return;
       }
 
-      // Enviar a Google Sheets mediante Google Apps Script
-      fetch("https://script.google.com/macros/s/AKfycbxh1DmdSD8dmoA7mux3wNSW4gyNyV3IluM5NlcyxaEY_mHPI2KV5uGkQel_w9cTQC26/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbwhdADXC5yVqu1NOrEvg53QPzmHtk5K3B5IJyBKFNkdpMbrWePfY6apOPJgJmoPwah2/exec", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -215,10 +214,15 @@
           observaciones 
         })
       })
-      .then(res => res.json())
-      .then(data => console.log(data))
+      .then(() => console.log("Enviado ✓"))
       .catch(err => console.error(err));
 
+  // LIMPIAR CAMPOS
+      document.getElementById('nombre').value = "";
+      document.getElementById('servicio').value = "";
+      document.getElementById('colaborador').value = "";
+      document.getElementById('observaciones').value = "";
+      selectedSatisfaction = null;
 
       showPage('thanks');
       setTimeout(() => showPage('main'), 10000);
