@@ -203,16 +203,16 @@
         return;
       }
 
-      fetch("https://script.google.com/macros/s/AKfycbyhrNpETivHGi-gn588mYYDPi9qOibR5R3rpWuVASkeadpmGtThhAL1NkM45Qv7KyNQ/exec", {
+      const data = new URLSearchParams();
+      data.append("nombre", nombre);
+      data.append("satisfaction", selectedSatisfaction); // "malo", "medio", "bueno"
+      data.append("servicio", servicio);
+      data.append("colaborador", colaborador);
+      data.append("observaciones", observaciones);
+
+      fetch("https://script.google.com/macros/s/AKfycbzwixEHkXorBPl94JaxC5-P5rrPpR2QKuu1QF3ZbqDWWckS9FKGOvAfjwPS_Kh8OgBZ/exec", {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          nombre, 
-          selectedSatisfaction, 
-          servicio, 
-          colaborador, 
-          observaciones 
-        })
+        body: data
       })
       .then(r => r.text())
       .then(console.log)
@@ -229,26 +229,6 @@
       showPage('thanks');
       setTimeout(() => showPage('main'), 10000);
     });
-
-    // ------------------------ PANTALLA DE ESPERA (CARRUSEL) ------------------------
-    const images = [
-      "carrusel1.JPG", "carrusel2.JPG", "carrusel3.JPG", "carrusel4.JPG", "carrusel5.JPG",
-      "carrusel6.JPG", "carrusel7.JPG", "carrusel8.JPG", "carrusel9.JPG", "carrusel10.JPG"
-    ];
-
-    let idx = 0;
-    setInterval(() => {
-      if (pages.wait.classList.contains('active')) {
-        const img = document.getElementById('carousel-img');
-        img.style.opacity = 0;
-
-        setTimeout(() => {
-          img.src = images[idx];
-          idx = (idx + 1) % images.length;
-          img.style.opacity = 1;
-        }, 1500); 
-      }
-    }, 6000);
 
     // ------------------------ >>> AQUÍ AGREGO LO QUE FALTABA <<< ------------------------
 
