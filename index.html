@@ -193,42 +193,43 @@
 
     // ------------------------ VALIDACIÓN Y ENVÍO ------------------------
     document.getElementById('btnEnviar').addEventListener('click', () => {
-      const nombre = document.getElementById('nombre').value.trim();
-      const servicio = document.getElementById('servicio').value;
-      const colaborador = document.getElementById('colaborador').value;
-      const observaciones = document.getElementById('observaciones').value.trim();
 
-      if (!nombre || !selectedSatisfaction || !servicio || !colaborador || !observaciones) {
-        alert("Todos los campos son obligatorios.");
-        return;
-      }
+  const nombre = document.getElementById('nombre').value.trim();
+  const servicio = document.getElementById('servicio').value;
+  const colaborador = document.getElementById('colaborador').value;
+  const observaciones = document.getElementById('observaciones').value.trim();
 
-      const data = new URLSearchParams();
-      data.append("nombre", nombre);
-      data.append("satisfaction", selectedSatisfaction); // "malo", "medio", "bueno"
-      data.append("servicio", servicio);
-      data.append("colaborador", colaborador);
-      data.append("observaciones", observaciones);
+  if (!nombre || !selectedSatisfaction || !servicio || !colaborador || !observaciones) {
+    alert("Todos los campos son obligatorios.");
+    return;
+  }
 
-      fetch("https://script.google.com/macros/s/AKfycbzwixEHkXorBPl94JaxC5-P5rrPpR2QKuu1QF3ZbqDWWckS9FKGOvAfjwPS_Kh8OgBZ/exec", {
-        method: 'POST',
-        body: data
-      })
-      .then(r => r.text())
-      .then(console.log)
-      .catch(console.error);
+  const data = new URLSearchParams();
+  data.append("nombre", nombre);
+  data.append("satisfaction", selectedSatisfaction); // "malo", "medio", "bueno"
+  data.append("servicio", servicio);
+  data.append("colaborador", colaborador);
+  data.append("observaciones", observaciones);
+
+  fetch("https://script.google.com/macros/s/AKfycbzwixEHkXorBPl94JaxC5-P5rrPpR2QKuu1QF3ZbqDWWckS9FKGOvAfjwPS_Kh8OgBZ/exec", {
+    method: 'POST',
+    body: data
+  })
+  .then(r => r.text())
+  .then(console.log)
+  .catch(console.error);
 
   // LIMPIAR CAMPOS
-      document.getElementById('nombre').value = "";
-      document.getElementById('servicio').value = "";
-      document.getElementById('colaborador').value = "";
-      document.getElementById('observaciones').value = "";
-      selectedSatisfaction = null;
-      document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
+  document.getElementById('nombre').value = "";
+  document.getElementById('servicio').value = "";
+  document.getElementById('colaborador').value = "";
+  document.getElementById('observaciones').value = "";
+  selectedSatisfaction = null;
+  document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
 
-      showPage('thanks');
-      setTimeout(() => showPage('main'), 10000);
-    });
+  showPage('thanks');
+  setTimeout(() => showPage('main'), 10000);
+});
 
     // ------------------------ PANTALLA DE ESPERA (CARRUSEL) ------------------------
     const images = [
