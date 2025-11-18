@@ -230,6 +230,26 @@
       setTimeout(() => showPage('main'), 10000);
     });
 
+    // ------------------------ PANTALLA DE ESPERA (CARRUSEL) ------------------------
+    const images = [
+      "carrusel1.JPG", "carrusel2.JPG", "carrusel3.JPG", "carrusel4.JPG", "carrusel5.JPG",
+      "carrusel6.JPG", "carrusel7.JPG", "carrusel8.JPG", "carrusel9.JPG", "carrusel10.JPG"
+    ];
+
+    let idx = 0;
+    setInterval(() => {
+      if (pages.wait.classList.contains('active')) {
+        const img = document.getElementById('carousel-img');
+        img.style.opacity = 0;
+
+        setTimeout(() => {
+          img.src = images[idx];
+          idx = (idx + 1) % images.length;
+          img.style.opacity = 1;
+        }, 1500); 
+      }
+    }, 6000);
+
     // ------------------------ >>> AQUÍ AGREGO LO QUE FALTABA <<< ------------------------
 
     // Cuando se toca/clic la pantalla de espera, regresar al formulario
