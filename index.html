@@ -60,6 +60,19 @@
     /* ===== CONTENEDOR CON FONDO BLANCO TRASLÚCIDO ===== */
     .container { max-width: 900px; margin: auto; background: rgba(255,255,255,0.93); /* blanco 93% */ padding: 20px; border-radius: 12px; backdrop-filter: blur(4px); }
 
+    .thanks-box {
+      min-height: 450px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.93);
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    
     .page { display: none; padding: 20px; }
 
     .active { 
@@ -155,7 +168,7 @@
 
   <!-- PAGINA DE AGRADECIMIENTO -->
   <div id="page-thanks" class="page">
-    <div class="container">
+    <div class="container thanks-box">
       <h2>¡Gracias por tus comentarios!</h2>
     </div>
   </div>
