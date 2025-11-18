@@ -203,7 +203,7 @@
         return;
       }
 
-      fetch("https://script.google.com/macros/s/AKfycbxhL3VFCDxBsvu_MSGK-0oC8AtzK22rNy3p85WaxpgtJYoImxJt6dH4Yc2yILPbECkW/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbyhrNpETivHGi-gn588mYYDPi9qOibR5R3rpWuVASkeadpmGtThhAL1NkM45Qv7KyNQ/exec", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -214,8 +214,9 @@
           observaciones 
         })
       })
-      .then(() => console.log("Enviado ✓"))
-      .catch(err => console.error(err));
+      .then(r => r.text())
+      .then(console.log)
+      .catch(console.error);
 
   // LIMPIAR CAMPOS
       document.getElementById('nombre').value = "";
