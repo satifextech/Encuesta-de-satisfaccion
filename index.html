@@ -67,12 +67,19 @@
       margin-bottom: 20px;
     }
 
+    .label-row {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Espacio entre texto y bocina */
+      margin-bottom: 8px;
+    }
+
     .audio-btn {
       background: none;
       border: none;
       font-size: 26px;
       cursor: pointer;
-      margin-left: 8px;
+      padding: 0;
     }
 
     .audio-btn:hover {
@@ -131,10 +138,14 @@
       <h2>Encuesta de Satisfacción</h2>
 
       <div class="question">
-        <label>1. Nombre del paciente</label>
-         <button class="audio-btn" data-audio="pregunta1.mp3">🔊</button>
+        <div class="label-row">
+          <label>1. Nombre del paciente</label>
+          <button class="audio-btn" data-audio="pregunta1.mp3">🔊</button>
+        </div>
+  
         <input id="nombre" type="text" />
       </div>
+
 
       <div class="question">
         <label>2. ¿Qué tan satisfecho estás con nuestro servicio?</label>
