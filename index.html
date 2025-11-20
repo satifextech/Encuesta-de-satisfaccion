@@ -67,6 +67,18 @@
       margin-bottom: 20px;
     }
 
+    .audio-btn {
+      background: none;
+      border: none;
+      font-size: 26px;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    .audio-btn:hover {
+      transform: scale(1.2);
+    }
+
     .thanks-box {
       min-height: 450px;
       padding: 40px;
@@ -297,6 +309,21 @@
       Object.values(pages).forEach(pg => pg.classList.remove('active'));
       pages[p].classList.add('active');
     }
+
+    let currentAudio = null;
+
+    document.querySelectorAll('.audio-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const audioSrc = btn.getAttribute('data-audio');
+
+        if (currentAudio) currentAudio.pause();
+        
+        const audio = new Audio(audioSrc);
+        audio.play();
+      });
+    });
+
+    
 </script>
 
 </body>
