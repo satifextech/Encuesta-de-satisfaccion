@@ -77,6 +77,7 @@
       background: none;
       border: none;
       padding: 0;
+      margin-bottom: 6px;   /* Súbelo ajustando este número */
       margin: 0;
       font-size: 40px;    /* tamaño del ícono */
       cursor: pointer;
@@ -151,7 +152,10 @@
 
 
       <div class="question">
-        <label>2. ¿Qué tan satisfecho estás con nuestro servicio?</label>
+        <div class="label-row">
+          <label>2. ¿Qué tan satisfecho estás con nuestro servicio?</label>
+          <button class="audio-btn" data-audio="pregunta2.mp3">🔊</button>
+        </div>
         <div class="emoji-row">
           <div class="emoji-container">
             <div class="emoji" data-value="malo">🙁</div>
@@ -172,7 +176,10 @@
       </div>
 
       <div class="question">
-        <label>3. Tipo de servicio</label>
+        <div class="label-row">
+          <label>3. Tipo de servicio</label>
+          <button class="audio-btn" data-audio="pregunta3.mp3">🔊</button>
+        </div>
         <select id="servicio">
           <option value="">Seleccione...</option>
           <option>Terapia de lenguaje</option>
@@ -182,7 +189,10 @@
       </div>
 
       <div class="question">
-        <label>4. Colaborador</label>
+        <div class="label-row">
+          <label>4. Colaborador</label>
+          <button class="audio-btn" data-audio="pregunta4.mp3">🔊</button>
+        </div>
         <select id="colaborador">
           <option value="">Seleccione...</option>
           <option>Juan</option>
@@ -192,7 +202,10 @@
       </div>
 
       <div class="question">
-        <label>5. Observaciones, opiniones o felicitaciones</label>
+        <div class="label-row">
+          <label>5. Observaciones, opiniones o felicitaciones</label>
+          <button class="audio-btn" data-audio="pregunta5.mp3">🔊</button>
+        </div>
         <textarea id="observaciones"></textarea>
       </div>
 
